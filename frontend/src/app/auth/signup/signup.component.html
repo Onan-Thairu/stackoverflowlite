@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="content">
+    <div class="logo">
+      <p>Stack<span>Overflow</span></p>
+    </div>
+
+    <div class="formGroup">
+      <form [formGroup]="form" (ngSubmit)="submitForm()" >
+          <div class="formControl">
+            <label for="name">Display Name</label>
+            <input type="text" formControlName="name" />
+          </div>
+      
+          <div class="formControl">
+            <label for="email">Email</label>
+            <input type="email" formControlName="email" />
+          </div>
+      
+          <div class="formControl">
+            <label for="password">Password</label>
+            <input type="password" formControlName="password" />
+          </div>
+      
+          <div class="formControl">
+            <label for="confirm_password">Confirm Password</label>
+            <input type="password" formControlName="confirm_password" />
+          </div>
+      
+          <div class="formControl">
+            <button type="submit" class="btn" >SIGNUP</button>
+          </div>
+    
+          <div class="footer">
+            <p>Already have an account?<span><a>Login</a></span></p>
+          </div>
+      </form>
+    </div>
+
+  </div>
+</div>
