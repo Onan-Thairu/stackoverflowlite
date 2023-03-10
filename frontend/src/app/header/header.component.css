@@ -1,0 +1,69 @@
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  margin: 1rem;
+}
+.top-left{
+  display: flex;
+  gap: 1rem;
+  font-size: .8rem;
+  margin-right: 1rem;
+}
+.top-left img {
+  width: 1rem;
+  cursor: pointer;
+}
+.top-left a {
+  text-decoration: none;
+  color: #616161;
+}
+.top-left a:hover {
+  color:#9E9E9E;
+}
+.logo p {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #616161;
+}
+.logo span {
+  color: #9E9E9E;
+  margin-left: .2rem;
+}
+.lower-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+}
+.lower-content img {
+  margin-left: .3rem;
+  margin-top: .4rem;
+  width: 1rem;
+}
+.search::placeholder {
+  background-image: url(../../assets/icons/search.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.search {
+  width: 300px;
+  border: none;
+  outline: none;
+  border-radius: 3px;
+  padding: .3rem .5rem;
+  color: #616161;
+}
+.question-btn button {
+  border: none;
+  background-color: #616161;
+  padding: .3rem .5rem;
+  font-size: .8rem;
+  color: #fff;
+  border-radius: 5px;
+}
+.question-btn button:hover {
+  background-color: #9E9E9E;
+}
