@@ -1,1 +1,31 @@
-<p>login works!</p>
+<div class="container">
+  <div class="content">
+    <div class="logo">
+      <p>Stack<span>Overflow</span></p>
+    </div>
+
+    <div class="formGroup">
+      <form [formGroup]="form" (ngSubmit)="submitForm()" >
+
+        <div class="formControl">
+          <label for="email">Email</label>
+          <input type="email" formControlName="email" />
+        </div>
+    
+        <div class="formControl">
+          <label for="password">Password</label>
+          <input type="password" formControlName="password" />
+        </div>
+    
+        <div class="formControl">
+          <button type="submit" class="btn" >LOGIN</button>
+        </div>
+    
+          <div class="footer">
+            <p>Don't have an account?<span><a routerLink="/signup" >Signup</a></span></p>
+          </div>
+      </form>
+    </div>
+
+  </div>
+</div>
