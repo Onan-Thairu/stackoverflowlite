@@ -47,9 +47,9 @@ form {
   outline: none;
   border: none;
   padding: .5rem;
-  margin-bottom: .6rem;
   width: 100%;
   border-radius: 5px;
+  margin-bottom: .3rem;
 }
 .formControl button {
   margin-top: 1rem;
@@ -65,7 +65,15 @@ form {
 .formControl button:hover {
   background-color: #616161;
 }
+.error {
+  font-size: .8em;
+  color: #ef5350;
+  margin-bottom: .6rem;
+}
 .footer p {
+  font-size: .7rem;
+}
+.footer a {
   font-size: .7rem;
 }
 .footer span {

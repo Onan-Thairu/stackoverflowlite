@@ -9,12 +9,19 @@
 
         <div class="formControl">
           <label for="email">Email</label>
-          <input type="email" formControlName="email" />
+          <input type="email" id="email" required name="email" formControlName="email" />
+          <span class="error" *ngIf="form.get('email')?.invalid && form.get('email')?.touched" >
+            <span class="error" *ngIf="form.get('email')!.errors!['required']" >Email is required</span>
+            <span class="error" *ngIf="form.get('email')!.errors!['email']" >Invalid email</span>
+          </span>
         </div>
     
         <div class="formControl">
-          <label for="password">Password</label>
-          <input type="password" formControlName="password" />
+          <label for="password" >Password</label>
+          <input type="password" name="password" required formControlName="password" />
+          <span class="error" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+            <span class="error" *ngIf="form.get('password')!.errors!['required']">Enter password</span>
+          </span>
         </div>
     
         <div class="formControl">
@@ -23,6 +30,7 @@
     
           <div class="footer">
             <p>Don't have an account?<span><a routerLink="/signup" >Signup</a></span></p>
+            <a href="#">Forgot Password?</a>
           </div>
       </form>
     </div>
