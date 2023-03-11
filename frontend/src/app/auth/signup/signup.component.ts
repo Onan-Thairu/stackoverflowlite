@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormGroup, FormBuilder, Validators  } from '@angular/forms';
+import { ReactiveFormsModule, FormGroup, FormBuilder, Validators, AbstractControl  } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -15,14 +15,25 @@ export class SignupComponent implements OnInit {
 
   constructor(private fb:FormBuilder){}
 
-  submitForm() {}
-
   ngOnInit(): void {
     this.form = this.fb.group({
-      name: [null, Validators.required],
+      name: [null, Validators.required ],
       email: [null, [Validators.required, Validators.email]],
       password: [null, Validators.required],
-      confirm_password: [null, Validators.required]
+      confirm_password: [null, [Validators.required, this.passwordMatchValidator]]
     })
+  }
+
+  submitForm() {}
+
+  passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const password = control.root.get('password');
+    const confirm_password = control.value;
+
+    if (password && confirm_password && password.value !== confirm_password) {
+      return { passwordMatch: true };
+    } else {
+      return null;
+    }
   }
 }

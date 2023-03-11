@@ -8,26 +8,40 @@
       <form [formGroup]="form" (ngSubmit)="submitForm()" >
           <div class="formControl">
             <label for="name">Display Name</label>
-            <input type="text" formControlName="name" />
+            <input type="text" name="name" formControlName="name"  required />
+            <span class="error" *ngIf="form.get('name')?.invalid && form.get('name')?.touched" >
+              <span class="error" *ngIf="form.get('name')!.errors!['required']">Display name is required</span>
+            </span>
           </div>
       
           <div class="formControl">
             <label for="email">Email</label>
-            <input type="email" formControlName="email" />
+            <input type="email" autocomplete="email" required formControlName="email" />
+            <span class="error" *ngIf="form.get('email')?.invalid && form.get('email')?.touched" >
+              <span class="error" *ngIf="form.get('email')!.errors!['required']">Email is required</span>
+              <span class="error" *ngIf="form.get('email')!.errors!['email']">Invalid email</span>
+            </span>
           </div>
       
           <div class="formControl">
             <label for="password">Password</label>
-            <input type="password" formControlName="password" />
+            <input type="password" autocomplete="new-password" formControlName="password" />
+            <span class="error" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+              <span class="error" *ngIf="form.get('password')!.errors!['required']">Password is required</span>
+            </span>
           </div>
       
           <div class="formControl">
             <label for="confirm_password">Confirm Password</label>
-            <input type="password" formControlName="confirm_password" />
+            <input type="password" autocomplete="new-password" formControlName="confirm_password" />
+            <span class="error" *ngIf="form.get('confirm_password')?.invalid && form.get('confirm_password')?.touched">
+              <span class="error" *ngIf="form.get('confirm_password')!.errors!['required']">Confirm Password is required</span>
+              <span class="error" *ngIf="form.get('confirm_password')!.errors!['passwordMatch']">Passwords do not match</span>
+            </span>
           </div>
       
           <div class="formControl">
-            <button type="submit" class="btn" >SIGNUP</button>
+            <button type="submit" class="btn" [ngClass]="{invalid:!form.valid, valid:form.valid}" >SIGNUP</button>
           </div>
     
           <div class="footer">

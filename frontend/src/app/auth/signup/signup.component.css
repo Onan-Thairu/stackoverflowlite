@@ -73,6 +73,18 @@ form {
   font-weight: 600;
   cursor: pointer;
 }
+.error {
+  font-size: .8em;
+  color: #ef5350;
+  margin-bottom: .3rem;
+}
+.invalid {
+  background-color:#e0e0e0;
+}
+
+.valid {
+  background-color: #757575;
+}
 
 @media (max-width:600px) {
   .content {
