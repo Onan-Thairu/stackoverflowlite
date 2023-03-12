@@ -128,5 +128,10 @@
     width: 75px;
     height: 75px;
   }
-  
+}
+@media (max-width: 500px){
+  .top-content{
+    display: flex;
+    flex-direction: column;
+  }
 }
