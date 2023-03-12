@@ -1,0 +1,132 @@
+
+/* Set a max-width for the container and center it */
+.container {
+  width: 90vw;
+  /* background-color: #fff; */
+}
+.logo {
+  margin: 1rem;
+}
+.logo a {
+  text-decoration: none;
+}
+.logo p {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #616161;
+}
+.logo span {
+  color: #9E9E9E;
+  margin-left: .2rem;
+}
+/* Use flexbox to layout the content */
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Style the top content section */
+.top-content {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 1rem;
+  color: #616161;
+}
+
+.total-questions, .total-answers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0.5rem;
+  background-color: #fff;
+  padding: 1rem;
+  border: 1px solid #CCCCCC;
+  border-radius: 5px;
+}
+
+.total-questions p, .total-answers p {
+  margin: 0.5rem 0;
+  font-weight: 600;
+
+}
+.total-questions .number, .total-answers .number {
+  font-size: 1.2rem;
+}
+
+.profile-img {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0.5rem;
+}
+
+.profile-img img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.profile-img p {
+  margin: 0.5rem 0;
+  font-weight: bold;
+}
+
+/* Style the button section */
+.btns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+  margin-left: 1rem;
+}
+
+.btns button {
+  margin: 0.5rem;
+  border: none;
+}
+
+.btns button a {
+  display: block;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  background-color: #616161;
+  color: #FFFFFF;
+  text-decoration: none;
+  border: none;
+}
+.btns button a:hover {
+  background-color: #9E9E9E;
+}
+.btns button a:active {
+  background-color: #9E9E9E;
+}
+
+/* Style the bottom content section */
+.bottom-content {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1.5rem;
+  margin-top: 1rem;
+  gap: 1rem;
+}
+
+.bottom-content .data {
+  font-size: .7rem;
+  padding: .5rem 1rem;
+  border: 1px solid #CCCCCC;
+  background-color: #fff;
+  border-radius: 0.25rem;
+}
+
+/* Media queries for smaller screens */
+@media (max-width: 600px) {
+  .profile-img img {
+    width: 75px;
+    height: 75px;
+  }
+  
+}
