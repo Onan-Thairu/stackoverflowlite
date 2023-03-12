@@ -23,6 +23,9 @@
 .top-left a:hover {
   color:#9E9E9E;
 }
+.logo a {
+  text-decoration: none;
+}
 .logo p {
   font-size: 1.5rem;
   font-weight: 600;
@@ -36,7 +39,9 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-
+  flex-wrap: wrap;
+  margin-left: 1rem;
+  gap: 1rem;
 }
 .lower-content img {
   margin-left: .3rem;
@@ -49,7 +54,7 @@
   background-size: contain;
 }
 .search {
-  width: 300px;
+  width: 200px;
   border: none;
   outline: none;
   border-radius: 3px;
@@ -66,4 +71,12 @@
 }
 .question-btn button:hover {
   background-color: #9E9E9E;
+}
+.question-btn a {
+  text-decoration: none;
+  color: #fff;
+}
+
+@media (max-width:420px) {
+
 }

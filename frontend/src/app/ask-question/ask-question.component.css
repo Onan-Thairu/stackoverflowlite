@@ -1,0 +1,57 @@
+.container {
+  width: 90vw;
+}
+.formGroup {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-left: 1rem;
+  margin-top: 2.5rem;
+}
+.formControl label {
+  color: #616161;
+  font-weight: 600;
+  font-size: 1rem;
+}
+.formControl .description {
+  color: #9E9E9E;
+  font-size: .7rem;
+  margin-bottom: .5rem;
+}
+.formControl input {
+  width: 100%;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  padding: .6rem;
+  color: #616161;
+  margin-bottom: 1rem;
+}
+.formControl textarea {
+  width: 100%;
+  height: 80px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  padding: .6rem;
+  color: #616161;
+  margin-bottom: 1rem;
+}
+.error {
+  font-size: .6rem;
+  color: #ef5350;
+}
+.formControl button {
+  margin-top: 1rem;
+  padding: .6rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #616161;
+  color: #fff;
+  font-size: .8rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+.formControl button:hover {
+  background-color: #757575;
+}

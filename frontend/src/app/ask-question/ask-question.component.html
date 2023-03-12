@@ -1,0 +1,43 @@
+<app-header></app-header>
+<div class="container">
+  <div class="content">
+    <div class="formGroup">
+      <form [formGroup]="form" (ngSubmit)="submitForm()">
+
+        <div class="formControl">
+          <label for="title">Title</label>
+          <p class="description">Be specific and imagine you're asking a question to another person.</p>
+          <span class="error" *ngIf="form.get('title')?.invalid && form.get('title')?.touched" >
+            <span class="error" *ngIf="form.get('title')!.errors!['required']">Must have a title</span>
+          </span>
+          <input type="text" formControlName="title" name="title" required >
+        </div>
+
+        <div class="formControl">
+          <label for="details">What are the details of your problem?</label>
+          <p class="description">Introduce the problem and expand on what you put in the title. Minimum 20 characters.</p>
+          <span class="error" *ngIf="form.get('details')?.invalid && form.get('details')?.touched" >
+            <span class="error" *ngIf="form.get('details')!.errors!['required']">Cannot be empty</span>
+            <span class="error" *ngIf="form.get('details')!.errors!['minlength']">Must be at least 20 characters long</span>
+          </span>
+          <textarea name="details" formControlName="details" id="details"></textarea>
+        </div>
+
+        <div class="formControl">
+          <label for="tried">What did you try and what were you expecting?</label>
+          <p class="description">Describe what you tried, what you expected to happen, and what actually resulted. Minimum 20 characters.</p>
+          <span class="error" *ngIf="form.get('tried')?.invalid && form.get('tried')?.touched" >
+            <span class="error" *ngIf="form.get('tried')!.errors!['required']">Cannot be empty</span>
+            <span class="error" *ngIf="form.get('tried')!.errors!['minlength']">Must be at least 20 characters long</span>
+          </span>
+          <textarea name="tried" formControlName="tried" id="tried"></textarea>
+        </div>
+
+        <div class="formControl">
+          <button type="submit" class="btn" [disabled]="form.invalid">SUBMIT QUESTION</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
