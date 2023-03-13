@@ -9,6 +9,11 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
+import { questionReducer } from './state/reducers/question.reducer';
+import { answerReducer } from './state/reducers/answer.reducer';
+import { commentReducer } from './state/reducers/comment.reducer';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +23,11 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     AppRoutingModule,
     BrowserAnimationsModule,
     HeaderComponent,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot({
+      question: questionReducer,
+      answers: answerReducer,
+      comments: commentReducer
+    }, {}),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
   ],
