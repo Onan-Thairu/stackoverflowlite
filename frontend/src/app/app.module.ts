@@ -24,7 +24,7 @@ import { commentReducer } from './state/reducers/comment.reducer';
     BrowserAnimationsModule,
     HeaderComponent,
     StoreModule.forRoot({
-      question: questionReducer,
+      questions: questionReducer,
       answers: answerReducer,
       comments: commentReducer
     }, {}),
