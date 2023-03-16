@@ -52,3 +52,30 @@ export const registerUser = async (req: ExtendedRequest, res: Response) => {
     res.status(500).json(error)
   }
 }
+
+// Log in User
+
+export const loginUser = async (req: ExtendedRequest, res: Response) => {
+  try {
+    const { email, password } = req.body
+    if (DB.checkConnection() as unknown as boolean) {
+      const user = await DB.exec('sp_GetUserByEmail', { email: email })
+      if (user.length > 0) {
+        const validPassword = await bcrypt.compare(password, user[0].password)
+
+        if (validPassword) {
+          const token = jwt.sign(user[0], process.env.JWT_SECRET as string, { expiresIn:'1d' })
+          res.status(201).json({ 'token':token, user: user[0] })
+        } else {
+          res.status(500).json({ message:'Invalid password' })
+        }
+      } else {
+        res.status(500).json({ message: 'Invalid email' })
+      }
+    } else {
+      res.status(500).json({ message: 'Error connecting to database' })
+    }
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}

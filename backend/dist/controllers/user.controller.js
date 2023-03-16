@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.registerUser = void 0;
+exports.loginUser = exports.registerUser = void 0;
 // import User from '../models/user.model'
 const uuid_1 = require("uuid");
 const dbConnection_1 = __importDefault(require("../dbHelper/dbConnection"));
@@ -51,3 +51,32 @@ const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.registerUser = registerUser;
+// Log in User
+const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { email, password } = req.body;
+        if (dbConnection_1.default.checkConnection()) {
+            const user = yield dbConnection_1.default.exec('sp_GetUserByEmail', { email: email });
+            if (user.length > 0) {
+                const validPassword = yield bcrypt_1.default.compare(password, user[0].password);
+                if (validPassword) {
+                    const token = jsonwebtoken_1.default.sign(user[0], process.env.JWT_SECRET, { expiresIn: '1d' });
+                    res.status(201).json({ 'token': token, user: user[0] });
+                }
+                else {
+                    res.status(500).json({ message: 'Invalid password' });
+                }
+            }
+            else {
+                res.status(500).json({ message: 'Invalid email' });
+            }
+        }
+        else {
+            res.status(500).json({ message: 'Error connecting to database' });
+        }
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+exports.loginUser = loginUser;
