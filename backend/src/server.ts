@@ -2,8 +2,6 @@ import express, { Express } from 'express'
 import dotenv from 'dotenv'
 import path from 'path'
 import cors from 'cors'
-import sqlConfig from './config/db.config'
-import mssql from 'mssql'
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') })
 

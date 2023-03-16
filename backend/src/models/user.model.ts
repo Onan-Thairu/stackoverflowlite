@@ -7,3 +7,5 @@ export class User {
     public isAdmin: string
   ){}
 }
+
+export default User
