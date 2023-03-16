@@ -6,6 +6,7 @@ import path from 'path'
 import dotenv from 'dotenv'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import User from '../models/user.model'
 
 dotenv.config({ path: path.resolve(__dirname, '../../.env') })
 
@@ -65,12 +66,31 @@ export const loginUser = async (req: ExtendedRequest, res: Response) => {
 
         if (validPassword) {
           const token = jwt.sign(user[0], process.env.JWT_SECRET as string, { expiresIn:'1d' })
-          res.status(201).json({ 'token':token, user: user[0] })
+          res.status(201).json({ 'token':token, user: { id: user[0].id, username: user[0].username, email: user[0].email, isAdmin: user[0].isAdmin } })
         } else {
           res.status(500).json({ message:'Invalid password' })
         }
       } else {
         res.status(500).json({ message: 'Invalid email' })
+      }
+    } else {
+      res.status(500).json({ message: 'Error connecting to database' })
+    }
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
+// Get user
+export const getUserById = async (req: ExtendedRequest, res: Response) => {
+  try {
+    const id = req.params.id
+    if (DB.checkConnection() as unknown as boolean) {
+      const user: User[] = await DB.exec('sp_GetUserById', { id:id }) as unknown as User[]
+      if (user) {
+        res.status(200).json({ id:user[0].id, username:user[0].username, email:user[0].email, isAdmin:user[0].isAdmin })
+      } else {
+        res.status(404).json({ message: 'User found'})
       }
     } else {
       res.status(500).json({ message: 'Error connecting to database' })

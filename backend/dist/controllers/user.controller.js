@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loginUser = exports.registerUser = void 0;
+exports.getUserById = exports.loginUser = exports.registerUser = void 0;
 // import User from '../models/user.model'
 const uuid_1 = require("uuid");
 const dbConnection_1 = __importDefault(require("../dbHelper/dbConnection"));
@@ -61,7 +61,7 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 const validPassword = yield bcrypt_1.default.compare(password, user[0].password);
                 if (validPassword) {
                     const token = jsonwebtoken_1.default.sign(user[0], process.env.JWT_SECRET, { expiresIn: '1d' });
-                    res.status(201).json({ 'token': token, user: user[0] });
+                    res.status(201).json({ 'token': token, user: { id: user[0].id, username: user[0].username, email: user[0].email, isAdmin: user[0].isAdmin } });
                 }
                 else {
                     res.status(500).json({ message: 'Invalid password' });
@@ -80,3 +80,25 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.loginUser = loginUser;
+// Get user
+const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const id = req.params.id;
+        if (dbConnection_1.default.checkConnection()) {
+            const user = yield dbConnection_1.default.exec('sp_GetUserById', { id: id });
+            if (user) {
+                res.status(200).json({ id: user[0].id, username: user[0].username, email: user[0].email, isAdmin: user[0].isAdmin });
+            }
+            else {
+                res.status(404).json({ message: 'User found' });
+            }
+        }
+        else {
+            res.status(500).json({ message: 'Error connecting to database' });
+        }
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+exports.getUserById = getUserById;
