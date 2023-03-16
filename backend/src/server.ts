@@ -5,14 +5,19 @@ import cors from 'cors'
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') })
 
+import userRouter from './routers/user.router'
+
 const app: Express = express()
 app.use(express.json())
 app.use(cors())
 
+app.use('/api/users', userRouter)
+
 const PORT = process.env.PORT || 5051
-app.listen( () => {
+app.listen(PORT, () => {
   console.log(`App running on port ${PORT}`)
 })
+
 
 // async function testConnection() {
 //   try {
