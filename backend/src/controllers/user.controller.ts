@@ -99,3 +99,80 @@ export const getUserById = async (req: ExtendedRequest, res: Response) => {
     res.status(500).json(error)
   }
 }
+
+// Update a user
+export const updateUser = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id
+
+    if (DB.checkConnection() as unknown as boolean) {
+      const existingUser: User[] = await DB.exec('sp_GetUserById', { id: id})
+      if (existingUser.length > 0) {
+        const newUser = {
+          id: id,
+          username: req.body.username,
+          email:existingUser[0].email,
+          password: req.body.password,
+          isAdmin: req.body.isAdmin
+        }
+
+        const salt = await bcrypt.genSalt(10)
+        newUser.password = await bcrypt.hash(newUser.password, salt)
+
+        const updatedUser = await DB.exec('sp_InsertOrUpdateUser', newUser)
+        if (updatedUser) {
+          res.status(201).json({ message: 'User updated successfully', updatedUser })
+        } else {
+          res.status(422).json({ message: 'Error updating user'})
+        }
+      } else {
+        res.status(404).json({ message: 'User Not Found' })
+      }
+    } else {
+      res.status(500).json({ message: 'Error connecting to database' })
+    }
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
+// Get all users
+
+export const getAllUsers = async (req: Request, res: Response) => {
+  try {
+    if(DB.checkConnection() as unknown as boolean) {
+      const users: User[] = await DB.exec('sp_GetAllUsers',{})
+      if (users.length > 0) {
+        res.status(200).json(users)
+      } else {
+        res.status(200).json({ message: 'No users found' })
+      }
+    } else {
+      res.status(500).json({ message: 'Error connecting to database' })
+    }
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
+// Delete a user
+
+export const deleteUser = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id
+    if (DB.checkConnection() as unknown as boolean) {
+      const user: User[] = await DB.exec('sp_GetUserById', { id:id })
+
+      if (user.length > 0) {
+        await DB.exec('sp_DeleteUser', { id: user[0].id })
+        res.status(204).json({ message: 'User deleted successfully' })
+      } else {
+        res.status(404).json({ message: 'User Not Found'})
+      }
+    } else {
+      res.status(500).json({ message: "Error connecting to database." })
+    }
+  } catch (error) {
+   res.status(500).json(error) 
+  }
+}

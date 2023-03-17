@@ -13,7 +13,7 @@ app.use(cors())
 
 app.use('/api/users', userRouter)
 
-const PORT = process.env.PORT || 5051
+const PORT = process.env.PORT || 5052
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}`)
 })

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUserById = exports.loginUser = exports.registerUser = void 0;
+exports.deleteUser = exports.getAllUsers = exports.updateUser = exports.getUserById = exports.loginUser = exports.registerUser = void 0;
 // import User from '../models/user.model'
 const uuid_1 = require("uuid");
 const dbConnection_1 = __importDefault(require("../dbHelper/dbConnection"));
@@ -102,3 +102,84 @@ const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.getUserById = getUserById;
+// Update a user
+const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const id = req.params.id;
+        if (dbConnection_1.default.checkConnection()) {
+            const existingUser = yield dbConnection_1.default.exec('sp_GetUserById', { id: id });
+            if (existingUser.length > 0) {
+                const newUser = {
+                    id: id,
+                    username: req.body.username,
+                    email: existingUser[0].email,
+                    password: req.body.password,
+                    isAdmin: req.body.isAdmin
+                };
+                const salt = yield bcrypt_1.default.genSalt(10);
+                newUser.password = yield bcrypt_1.default.hash(newUser.password, salt);
+                const updatedUser = yield dbConnection_1.default.exec('sp_InsertOrUpdateUser', newUser);
+                if (updatedUser) {
+                    res.status(201).json({ message: 'User updated successfully', updatedUser });
+                }
+                else {
+                    res.status(422).json({ message: 'Error updating user' });
+                }
+            }
+            else {
+                res.status(404).json({ message: 'User Not Found' });
+            }
+        }
+        else {
+            res.status(500).json({ message: 'Error connecting to database' });
+        }
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+exports.updateUser = updateUser;
+// Get all users
+const getAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        if (dbConnection_1.default.checkConnection()) {
+            const users = yield dbConnection_1.default.exec('sp_GetAllUsers', {});
+            if (users.length > 0) {
+                res.status(200).json(users);
+            }
+            else {
+                res.status(200).json({ message: 'No users found' });
+            }
+        }
+        else {
+            res.status(500).json({ message: 'Error connecting to database' });
+        }
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+exports.getAllUsers = getAllUsers;
+// Delete a user
+const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const id = req.params.id;
+        if (dbConnection_1.default.checkConnection()) {
+            const user = yield dbConnection_1.default.exec('sp_GetUserById', { id: id });
+            if (user.length > 0) {
+                yield dbConnection_1.default.exec('sp_DeleteUser', { id: user[0].id });
+                res.status(204).json({ message: 'User deleted successfully' });
+            }
+            else {
+                res.status(404).json({ message: 'User Not Found' });
+            }
+        }
+        else {
+            res.status(500).json({ message: "Error connecting to database." });
+        }
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+exports.deleteUser = deleteUser;
