@@ -6,12 +6,14 @@ import cors from 'cors'
 dotenv.config({ path: path.resolve(__dirname, '../.env') })
 
 import userRouter from './routers/user.router'
+import questionRouter from './routers/question.router'
 
 const app: Express = express()
 app.use(express.json())
 app.use(cors())
 
 app.use('/api/users', userRouter)
+app.use('/api/question', questionRouter)
 
 const PORT = process.env.PORT || 5052
 app.listen(PORT, () => {

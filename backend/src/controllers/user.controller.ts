@@ -110,20 +110,19 @@ export const updateUser = async (req: Request, res: Response) => {
       if (existingUser.length > 0) {
         const newUser = {
           id: id,
-          username: req.body.username,
-          email:existingUser[0].email,
           password: req.body.password,
           isAdmin: req.body.isAdmin
         }
 
         const salt = await bcrypt.genSalt(10)
-        newUser.password = await bcrypt.hash(newUser.password, salt)
+        newUser.password = await bcrypt.hash(newUser.password, salt)        
 
-        const updatedUser = await DB.exec('sp_InsertOrUpdateUser', newUser)
+        const updatedUser = await DB.exec('sp_UpdateUser', newUser)
+        
         if (updatedUser) {
           res.status(201).json({ message: 'User updated successfully', updatedUser })
         } else {
-          res.status(422).json({ message: 'Error updating user'})
+          res.status(422).json({ message: 'Error updating user!'})
         }
       } else {
         res.status(404).json({ message: 'User Not Found' })
