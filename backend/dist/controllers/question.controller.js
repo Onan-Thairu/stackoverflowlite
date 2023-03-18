@@ -12,10 +12,37 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addQuestion = void 0;
+exports.addQuestion = exports.getAllQuestions = void 0;
 const uuid_1 = require("uuid");
 const question_validate_1 = require("../helpers/question.validate");
 const dbConnection_1 = __importDefault(require("../dbHelper/dbConnection"));
+// Get all questions
+const getAllQuestions = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        if (dbConnection_1.default.checkConnection()) {
+            const questions = yield dbConnection_1.default.exec("sp_GetAllQuestions", {});
+            if (questions) {
+                if (questions.length > 0) {
+                    res.status(200).send(questions);
+                }
+                else {
+                    res.status(200).send("No questions found");
+                }
+            }
+            else {
+                res.status(500).send("Error getting products");
+            }
+        }
+        else {
+            res.status(500).send("Error connecting to database");
+        }
+    }
+    catch (error) {
+        res.status(500).send(error);
+    }
+});
+exports.getAllQuestions = getAllQuestions;
+// Add a question
 const addQuestion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const question = {
@@ -23,6 +50,7 @@ const addQuestion = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             title: req.body.title,
             description: req.body.description,
             tried: req.body.tried,
+            created_at: new Date().toLocaleDateString(),
             user_id: req.body.user_id
         };
         const { error } = (0, question_validate_1.validateQuestion)(question);

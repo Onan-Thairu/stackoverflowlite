@@ -13,7 +13,7 @@ app.use(express.json())
 app.use(cors())
 
 app.use('/api/users', userRouter)
-app.use('/api/question', questionRouter)
+app.use('/api/questions', questionRouter)
 
 const PORT = process.env.PORT || 5052
 app.listen(PORT, () => {

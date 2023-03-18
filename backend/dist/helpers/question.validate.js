@@ -10,6 +10,7 @@ const questionSchema = joi_1.default.object({
     title: joi_1.default.string().required(),
     description: joi_1.default.string().required(),
     tried: joi_1.default.string().required(),
+    created_at: joi_1.default.string().required(),
     user_id: joi_1.default.string().required()
 });
 const validateQuestion = (question) => {

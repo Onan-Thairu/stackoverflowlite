@@ -14,7 +14,7 @@ const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 app.use('/api/users', user_router_1.default);
-app.use('/api/question', question_router_1.default);
+app.use('/api/questions', question_router_1.default);
 const PORT = process.env.PORT || 5052;
 app.listen(PORT, () => {
     console.log(`App running on port ${PORT}`);
