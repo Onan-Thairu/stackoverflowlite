@@ -56,3 +56,27 @@ export const addQuestion: RequestHandler = async (req: Request, res: Response) =
     res.status(500).send(error)
   }
 }
+
+// Get question by id
+export const getQuestionById: RequestHandler = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id
+
+    if (DB.checkConnection() as unknown as boolean) {
+      const question = await DB.exec("sp_GetQuestionById", { id })
+      if (question) {
+        if (question.length > 0) {
+          res.status(200).send(question)
+        } else {
+          res.status(200).send("Question does not exist")
+        }
+      } else {
+        res.status(500).send("Error getting question")
+      }
+    } else {
+      res.status(500).send("Error connecting to database")
+    }
+  } catch (error) {
+    res.status(500).send(error)
+  }
+}
