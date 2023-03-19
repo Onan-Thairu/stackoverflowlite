@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getQuestionById = exports.addQuestion = exports.getAllQuestions = void 0;
+exports.deleteQuestion = exports.getQuestionById = exports.addQuestion = exports.getAllQuestions = void 0;
 const uuid_1 = require("uuid");
 const question_validate_1 = require("../helpers/question.validate");
 const dbConnection_1 = __importDefault(require("../dbHelper/dbConnection"));
@@ -101,3 +101,25 @@ const getQuestionById = (req, res) => __awaiter(void 0, void 0, void 0, function
     }
 });
 exports.getQuestionById = getQuestionById;
+// Delete a question
+const deleteQuestion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const id = req.params.id;
+        if (dbConnection_1.default.checkConnection()) {
+            const result = yield dbConnection_1.default.exec("sp_DeleteQuestion", { id });
+            if (result && result[0].success) {
+                res.status(200).json({ message: "Question Deleted" });
+            }
+            else {
+                res.status(200).json({ message: "Question not found" });
+            }
+        }
+        else {
+            res.status(500).json({ message: "Error connecting to database" });
+        }
+    }
+    catch (error) {
+        res.status(500).send(error);
+    }
+});
+exports.deleteQuestion = deleteQuestion;

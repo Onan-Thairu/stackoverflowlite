@@ -80,3 +80,23 @@ export const getQuestionById: RequestHandler = async (req: Request, res: Respons
     res.status(500).send(error)
   }
 }
+
+// Delete a question
+export const deleteQuestion: RequestHandler = async (req: Request, res: Response) => {
+  try {
+      const id = req.params.id;
+      if (DB.checkConnection() as unknown as boolean) {
+          const result = await DB.exec("sp_DeleteQuestion", { id })
+          if (result && result[0].success) {
+              res.status(200).json({message: "Question Deleted"});
+          } else {
+              res.status(200).json({message: "Question not found"});
+          }
+      } else {
+        res.status(500).json({message: "Error connecting to database"});
+      }
+  } catch (error) {
+    res.status(500).send(error);
+  }
+}
+
