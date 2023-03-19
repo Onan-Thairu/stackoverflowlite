@@ -81,6 +81,44 @@ export const getQuestionById: RequestHandler = async (req: Request, res: Respons
   }
 }
 
+// Update a question
+export const updateQuestion: RequestHandler = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id
+    const questionToUpdate = await DB.exec("sp_GetQuestionById", { id })
+    
+    if (questionToUpdate) {
+      if (questionToUpdate.length > 0) {
+        const updatedQuestion: Question = {...questionToUpdate[0], ...req.body, created_at: new Date().toLocaleDateString()}
+        
+        const { error } = validateQuestion(updatedQuestion)
+        if (error) return res.status(400).json({ message: error.details[0].message })
+
+        if (DB.checkConnection() as unknown as boolean) {
+          const updated: Question = await DB.exec("sp_UpdateQuestion", {
+            id: updatedQuestion.id,
+            title: updatedQuestion.title,
+            description: updatedQuestion.description,
+            tried: updatedQuestion.tried,
+            created_at: updatedQuestion.created_at
+          }) as unknown as Question
+
+          if (updated) {
+            res.status(200).json(updated)
+          } else {
+            res.status(500).json({ message: "Error updating question" })
+          }
+        } else {
+          res.status(500).json({ message: "Error connecting to product" })
+        }
+      }
+    }
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
+
 // Delete a question
 export const deleteQuestion: RequestHandler = async (req: Request, res: Response) => {
   try {

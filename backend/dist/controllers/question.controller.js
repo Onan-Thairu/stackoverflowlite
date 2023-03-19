@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteQuestion = exports.getQuestionById = exports.addQuestion = exports.getAllQuestions = void 0;
+exports.deleteQuestion = exports.updateQuestion = exports.getQuestionById = exports.addQuestion = exports.getAllQuestions = void 0;
 const uuid_1 = require("uuid");
 const question_validate_1 = require("../helpers/question.validate");
 const dbConnection_1 = __importDefault(require("../dbHelper/dbConnection"));
@@ -101,6 +101,43 @@ const getQuestionById = (req, res) => __awaiter(void 0, void 0, void 0, function
     }
 });
 exports.getQuestionById = getQuestionById;
+// Update a question
+const updateQuestion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const id = req.params.id;
+        const questionToUpdate = yield dbConnection_1.default.exec("sp_GetQuestionById", { id });
+        if (questionToUpdate) {
+            if (questionToUpdate.length > 0) {
+                const updatedQuestion = Object.assign(Object.assign(Object.assign({}, questionToUpdate[0]), req.body), { created_at: new Date().toLocaleDateString() });
+                const { error } = (0, question_validate_1.validateQuestion)(updatedQuestion);
+                if (error)
+                    return res.status(400).json({ message: error.details[0].message });
+                if (dbConnection_1.default.checkConnection()) {
+                    const updated = yield dbConnection_1.default.exec("sp_UpdateQuestion", {
+                        id: updatedQuestion.id,
+                        title: updatedQuestion.title,
+                        description: updatedQuestion.description,
+                        tried: updatedQuestion.tried,
+                        created_at: updatedQuestion.created_at
+                    });
+                    if (updated) {
+                        res.status(200).json(updated);
+                    }
+                    else {
+                        res.status(500).json({ message: "Error updating question" });
+                    }
+                }
+                else {
+                    res.status(500).json({ message: "Error connecting to product" });
+                }
+            }
+        }
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+exports.updateQuestion = updateQuestion;
 // Delete a question
 const deleteQuestion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
