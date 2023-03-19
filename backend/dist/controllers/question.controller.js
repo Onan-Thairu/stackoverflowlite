@@ -23,18 +23,18 @@ const getAllQuestions = (req, res) => __awaiter(void 0, void 0, void 0, function
             const questions = yield dbConnection_1.default.exec("sp_GetAllQuestions", {});
             if (questions) {
                 if (questions.length > 0) {
-                    res.status(200).send(questions);
+                    res.status(200).json(questions);
                 }
                 else {
-                    res.status(200).send("No questions found");
+                    res.status(200).json({ message: "No questions found" });
                 }
             }
             else {
-                res.status(500).send("Error getting products");
+                res.status(500).json({ message: "Error getting products" });
             }
         }
         else {
-            res.status(500).send("Error connecting to database");
+            res.status(500).json({ message: "Error connecting to database" });
         }
     }
     catch (error) {
@@ -156,7 +156,7 @@ const deleteQuestion = (req, res) => __awaiter(void 0, void 0, void 0, function*
         }
     }
     catch (error) {
-        res.status(500).send(error);
+        res.status(500).json(error);
     }
 });
 exports.deleteQuestion = deleteQuestion;

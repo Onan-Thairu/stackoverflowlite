@@ -12,15 +12,15 @@ export const getAllQuestions: RequestHandler = async (req: Request, res: Respons
 
       if (questions) {
         if (questions.length > 0) {
-          res.status(200).send(questions)
+          res.status(200).json(questions)
         } else {
-          res.status(200).send("No questions found")
+          res.status(200).json({ message: "No questions found" })
         }
       } else {
-        res.status(500).send("Error getting products")
+        res.status(500).json({ message: "Error getting products" })
       }
     } else {
-      res.status(500).send("Error connecting to database")
+      res.status(500).json({ message: "Error connecting to database" })
     }
   } catch (error) {
     res.status(500).send(error)
@@ -134,7 +134,7 @@ export const deleteQuestion: RequestHandler = async (req: Request, res: Response
         res.status(500).json({message: "Error connecting to database"});
       }
   } catch (error) {
-    res.status(500).send(error);
+    res.status(500).json(error);
   }
 }
 
