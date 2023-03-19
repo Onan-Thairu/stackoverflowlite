@@ -17,7 +17,7 @@ export const getAllQuestions: RequestHandler = async (req: Request, res: Respons
           res.status(200).json({ message: "No questions found" })
         }
       } else {
-        res.status(500).json({ message: "Error getting products" })
+        res.status(500).json({ message: "Error getting answers" })
       }
     } else {
       res.status(500).json({ message: "Error connecting to database" })

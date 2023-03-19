@@ -1,7 +1,7 @@
 USE stackoverflowlite
 GO
 
-CREATE PROCEDURE sp_GetAnswersByQuestion
+CREATE OR ALTER PROCEDURE sp_GetAnswersByQuestion
     @question_id VARCHAR(255)
 AS
 BEGIN

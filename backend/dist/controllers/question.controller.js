@@ -30,7 +30,7 @@ const getAllQuestions = (req, res) => __awaiter(void 0, void 0, void 0, function
                 }
             }
             else {
-                res.status(500).json({ message: "Error getting products" });
+                res.status(500).json({ message: "Error getting answers" });
             }
         }
         else {
