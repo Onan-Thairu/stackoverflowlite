@@ -111,19 +111,17 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             if (existingUser.length > 0) {
                 const newUser = {
                     id: id,
-                    username: req.body.username,
-                    email: existingUser[0].email,
                     password: req.body.password,
                     isAdmin: req.body.isAdmin
                 };
                 const salt = yield bcrypt_1.default.genSalt(10);
                 newUser.password = yield bcrypt_1.default.hash(newUser.password, salt);
-                const updatedUser = yield dbConnection_1.default.exec('sp_InsertOrUpdateUser', newUser);
+                const updatedUser = yield dbConnection_1.default.exec('sp_UpdateUser', newUser);
                 if (updatedUser) {
                     res.status(201).json({ message: 'User updated successfully', updatedUser });
                 }
                 else {
-                    res.status(422).json({ message: 'Error updating user' });
+                    res.status(422).json({ message: 'Error updating user!' });
                 }
             }
             else {
