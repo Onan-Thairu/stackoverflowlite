@@ -12,6 +12,7 @@ const user_router_1 = __importDefault(require("./routers/user.router"));
 const question_router_1 = __importDefault(require("./routers/question.router"));
 const answer_router_1 = require("./routers/answer.router");
 const comment_router_1 = require("./routers/comment.router");
+const vote_router_1 = require("./routers/vote.router");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
@@ -19,6 +20,7 @@ app.use('/api/users', user_router_1.default);
 app.use('/api/questions', question_router_1.default);
 app.use('/api/answers', answer_router_1.answerRouter);
 app.use('/api/comments', comment_router_1.commentRouter);
+app.use('/api/votes', vote_router_1.voteRouter);
 const PORT = process.env.PORT || 5052;
 app.listen(PORT, () => {
     console.log(`App running on port ${PORT}`);
