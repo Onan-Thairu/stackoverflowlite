@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateComment = exports.addComment = exports.getAnswerComments = void 0;
+exports.deleteComment = exports.updateComment = exports.addComment = exports.getAnswerComments = void 0;
 const uuid_1 = require("uuid");
 const comment_validate_1 = require("../helpers/comment.validate");
 const dbConnection_1 = __importDefault(require("../dbHelper/dbConnection"));
@@ -108,3 +108,25 @@ const updateComment = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.updateComment = updateComment;
+// Delete a comment
+const deleteComment = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const id = req.params.id;
+        if (dbConnection_1.default.checkConnection()) {
+            const result = yield dbConnection_1.default.exec("sp_DeleteComment", { id });
+            if (result && result[0].success) {
+                res.status(200).json({ message: "Comment Deleted" });
+            }
+            else {
+                res.status(200).json({ message: "Comment not found" });
+            }
+        }
+        else {
+            res.status(500).json({ message: "Error connecting to database" });
+        }
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+exports.deleteComment = deleteComment;
