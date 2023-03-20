@@ -45,6 +45,9 @@ export const getTotalVotesOnAnswer = async (req: Request, res: Response) => {
       .execute('sp_GetTotalVotesOnAnswer')
     ).recordset[0]
 
+    if (totalVotes.totalVotes === null) {
+      return res.status(200).json({ totalVotes: 0 })
+    }
     return res.status(200).json(totalVotes)
   } catch (error) {
     res.status(500).json(error)
