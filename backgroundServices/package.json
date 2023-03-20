@@ -2,7 +2,7 @@
   "name": "backgroundservices",
   "version": "1.0.0",
   "description": "background service for stackoverflowlite",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -24,6 +24,7 @@
     "@types/ejs": "^3.1.2",
     "@types/mssql": "^8.1.2",
     "@types/node-cron": "^3.0.7",
-    "@types/nodemailer": "^6.4.7"
+    "@types/nodemailer": "^6.4.7",
+    "nodemon": "^2.0.21"
   }
 }

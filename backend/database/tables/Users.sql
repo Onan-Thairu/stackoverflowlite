@@ -3,5 +3,6 @@ CREATE TABLE Users (
     username VARCHAR(255) NOT NULL UNIQUE,
 	email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    isAdmin BIT NOT NULL DEFAULT 0
+    isAdmin BIT NOT NULL DEFAULT 0,
+    welcome_email_sent NOT NULL DEFAULT 0
 );
