@@ -6,3 +6,4 @@ const comment_controller_1 = require("../controllers/comment.controller");
 exports.commentRouter = (0, express_1.Router)();
 exports.commentRouter.get("/:answer_id", comment_controller_1.getAnswerComments);
 exports.commentRouter.post("/add-comment", comment_controller_1.addComment);
+exports.commentRouter.put("/:comment_id", comment_controller_1.updateComment);

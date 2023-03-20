@@ -57,3 +57,40 @@ export const addComment: RequestHandler = async (req: Request, res: Response) =>
     res.status(500).send(error)
   }
 }
+
+// Update a comment
+export const updateComment: RequestHandler = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.comment_id
+    const commentToUpdate = await DB.exec("sp_GetCommentById", { id })
+    
+    
+
+    if (commentToUpdate) {
+      if (commentToUpdate.length > 0) {
+        const updatedComment: Comment = {...commentToUpdate[0], ...req.body, created_at: new Date().toLocaleDateString()}
+        
+        const { error } = validateComment(updatedComment)
+        if (error) return res.status(400).json({ message: error.details[0].message })
+
+        if (DB.checkConnection() as unknown as boolean) {
+          const updated: Comment = await DB.exec("sp_UpdateComment", {
+            id: updatedComment.id,
+            description: updatedComment.description,
+            created_at: updatedComment.created_at,
+          }) as unknown as Comment
+
+          if (updated) {
+            res.status(200).json(updated)
+          } else {
+            res.status(500).json({ message: "Error updating comment" })
+          }
+        } else {
+          res.status(500).json({ message: "Error connecting to database" })
+        }
+      }
+    }
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}

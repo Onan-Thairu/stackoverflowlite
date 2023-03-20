@@ -5,7 +5,7 @@ import { validateAnswer } from '../helpers/answer.validate'
 import DB from '../dbHelper/dbConnection'
 
 
-// Get answers answers to a question
+// Get answers to a question
 export const getQuestionAnswers: RequestHandler = async (req: Request, res: Response) => {
   try {
     if (DB.checkConnection() as unknown as boolean) {

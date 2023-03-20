@@ -16,7 +16,7 @@ exports.deleteAnswer = exports.updateAnswer = exports.addAnswer = exports.getQue
 const uuid_1 = require("uuid");
 const answer_validate_1 = require("../helpers/answer.validate");
 const dbConnection_1 = __importDefault(require("../dbHelper/dbConnection"));
-// Get answers answers to a question
+// Get answers to a question
 const getQuestionAnswers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         if (dbConnection_1.default.checkConnection()) {
