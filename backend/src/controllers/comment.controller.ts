@@ -4,6 +4,31 @@ import { v4 as uuid } from 'uuid'
 import { validateComment } from '../helpers/comment.validate'
 import DB from '../dbHelper/dbConnection'
 
+
+export const getAnswerComments: RequestHandler = async (req: Request, res: Response) => {
+  try {
+    if (DB.checkConnection() as unknown as boolean) {
+      const answer_id = req.params.answer_id
+
+      const comments: Comment[] = await DB.exec("sp_GetCommentsByAnswer", { answer_id }) as unknown as Comment[]
+
+      if (comments) {
+        if (comments.length > 0) {
+          res.status(200).json(comments)
+        } else {
+          res.status(200).json({ message: "No comments found!" })
+        }
+      } else {
+        res.status(500).json({ message: "Error getting comments" })
+      }
+    } else {
+      res.status(500).json({ message: "Error connecting to database" })
+    }
+  } catch (error) {
+    res.status(500).send(error)
+  }
+}
+
 // Add a comment
 export const addComment: RequestHandler = async (req: Request, res: Response) => {
   try {
