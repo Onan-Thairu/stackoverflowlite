@@ -64,8 +64,6 @@ export const updateComment: RequestHandler = async (req: Request, res: Response)
     const id = req.params.comment_id
     const commentToUpdate = await DB.exec("sp_GetCommentById", { id })
     
-    
-
     if (commentToUpdate) {
       if (commentToUpdate.length > 0) {
         const updatedComment: Comment = {...commentToUpdate[0], ...req.body, created_at: new Date().toLocaleDateString()}
@@ -92,5 +90,24 @@ export const updateComment: RequestHandler = async (req: Request, res: Response)
     }
   } catch (error) {
     res.status(500).json(error)
+  }
+}
+
+// Delete a comment
+export const deleteComment: RequestHandler = async (req: Request, res: Response) => {
+  try {
+      const id = req.params.id;
+      if (DB.checkConnection() as unknown as boolean) {
+          const result = await DB.exec("sp_DeleteComment", { id })
+          if (result && result[0].success) {
+              res.status(200).json({message: "Comment Deleted"});
+          } else {
+              res.status(200).json({message: "Comment not found"});
+          }
+      } else {
+        res.status(500).json({message: "Error connecting to database"});
+      }
+  } catch (error) {
+    res.status(500).json(error);
   }
 }

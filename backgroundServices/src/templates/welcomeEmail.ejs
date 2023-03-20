@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Welcome to Stackoverflowlite</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        color: #333;
+        line-height: 1.4;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+      .header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .logo {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 10px;
+      }
+      .message {
+        margin-bottom: 30px;
+      }
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border-radius: 5px;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <img src="https://example.com/logo.png" alt="MyApp Logo" class="logo">
+        <h1>Welcome to <%=name%></h1>
+      </div>
+      <div class="message">
+        <p>Thank you for signing up for MyApp! We're excited to have you on board.</p>
+        <p>To get started, please click the button below to confirm your email address:</p>
+      </div>
+      <div class="button-container">
+        <a href="<%=URL%>" class="button">Confirm Email</a>
+      </div>
+    </div>
+  </body>
+</html>
