@@ -14,10 +14,13 @@ export const sendWelcomeEmail = async () => {
     const users = await pool.request().query(`SELECT * FROM Users WHERE welcome_email_sent = 0`)
     const usersList = users.recordset
     
+    
     for (let i = 0; i < usersList.length; i++) {
       let URL = `http://localhost:4000/verify/${usersList[i].id}`
 
       ejs.renderFile(path.resolve(__dirname, '../templates/welcomeEmail.ejs'), { name: usersList[i].username, URL:URL },async (error, data) => {
+        
+        
         if (error) {
           console.log(error);
         } else {

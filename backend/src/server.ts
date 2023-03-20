@@ -9,6 +9,7 @@ import userRouter from './routers/user.router'
 import questionRouter from './routers/question.router'
 import { answerRouter } from './routers/answer.router'
 import { commentRouter } from './routers/comment.router'
+import { voteRouter } from './routers/vote.router'
 
 const app: Express = express()
 app.use(express.json())
@@ -18,6 +19,7 @@ app.use('/api/users', userRouter)
 app.use('/api/questions', questionRouter)
 app.use('/api/answers', answerRouter)
 app.use('/api/comments', commentRouter)
+app.use('/api/votes', voteRouter)
 
 const PORT = process.env.PORT || 5052
 app.listen(PORT, () => {
