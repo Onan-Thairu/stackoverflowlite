@@ -34,3 +34,19 @@ export const voteOnAnswer = async (req: Request, res: Response) => {
     res.status(422).json(error)
   }
 }
+
+
+export const getTotalVotesOnAnswer = async (req: Request, res: Response) => {
+  try {
+    const answer_id = req.params.answer_id
+    const pool = await mssql.connect(sqlConfig)
+    const totalVotes = await (await pool.request()
+      .input('answer_id', answer_id)
+      .execute('sp_GetTotalVotesOnAnswer')
+    ).recordset[0]
+
+    return res.status(200).json(totalVotes)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
