@@ -8,6 +8,7 @@ dotenv.config({ path: path.resolve(__dirname, '../.env') })
 import userRouter from './routers/user.router'
 import questionRouter from './routers/question.router'
 import { answerRouter } from './routers/answer.router'
+import { commentRouter } from './routers/comment.router'
 
 const app: Express = express()
 app.use(express.json())
@@ -16,6 +17,7 @@ app.use(cors())
 app.use('/api/users', userRouter)
 app.use('/api/questions', questionRouter)
 app.use('/api/answers', answerRouter)
+app.use('/api/comments', commentRouter)
 
 const PORT = process.env.PORT || 5052
 app.listen(PORT, () => {
