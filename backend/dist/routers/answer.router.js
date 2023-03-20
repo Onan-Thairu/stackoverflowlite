@@ -7,3 +7,4 @@ exports.answerRouter = (0, express_1.Router)();
 exports.answerRouter.get("/:question_id", answer_controller_1.getQuestionAnswers);
 exports.answerRouter.post("/add-answer", answer_controller_1.addAnswer);
 exports.answerRouter.put("/:answer_id", answer_controller_1.updateAnswer);
+exports.answerRouter.delete("/:id", answer_controller_1.deleteAnswer);
