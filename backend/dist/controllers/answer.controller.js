@@ -12,11 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addAnswer = exports.getQuestionAnswers = void 0;
+exports.updateAnswer = exports.addAnswer = exports.getQuestionAnswers = void 0;
 const uuid_1 = require("uuid");
 const answer_validate_1 = require("../helpers/answer.validate");
 const dbConnection_1 = __importDefault(require("../dbHelper/dbConnection"));
-// Get all answers
+// Get answers answers to a question
 const getQuestionAnswers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         if (dbConnection_1.default.checkConnection()) {
@@ -27,7 +27,7 @@ const getQuestionAnswers = (req, res) => __awaiter(void 0, void 0, void 0, funct
                     res.status(200).json(answers);
                 }
                 else {
-                    res.status(200).json({ message: "No answers found" });
+                    res.status(200).json({ message: "No answers found!" });
                 }
             }
             else {
@@ -75,3 +75,39 @@ const addAnswer = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.addAnswer = addAnswer;
+// Update an answer
+const updateAnswer = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const id = req.params.answer_id;
+        const answerToUpdate = yield dbConnection_1.default.exec("sp_GetAnswerById", { id });
+        if (answerToUpdate) {
+            if (answerToUpdate.length > 0) {
+                const updatedAnswer = Object.assign(Object.assign(Object.assign({}, answerToUpdate[0]), req.body), { created_at: new Date().toLocaleDateString() });
+                const { error } = (0, answer_validate_1.validateAnswer)(updatedAnswer);
+                if (error)
+                    return res.status(400).json({ message: error.details[0].message });
+                if (dbConnection_1.default.checkConnection()) {
+                    const updated = yield dbConnection_1.default.exec("sp_UpdateAnswer", {
+                        id: updatedAnswer.id,
+                        description: updatedAnswer.description,
+                        created_at: updatedAnswer.created_at,
+                        isAccepted: updatedAnswer.isAccepted
+                    });
+                    if (updated) {
+                        res.status(200).json(updated);
+                    }
+                    else {
+                        res.status(500).json({ message: "Error updating answer" });
+                    }
+                }
+                else {
+                    res.status(500).json({ message: "Error connecting to database" });
+                }
+            }
+        }
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+exports.updateAnswer = updateAnswer;

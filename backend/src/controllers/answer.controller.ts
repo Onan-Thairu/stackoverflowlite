@@ -5,7 +5,7 @@ import { validateAnswer } from '../helpers/answer.validate'
 import DB from '../dbHelper/dbConnection'
 
 
-// Get all answers
+// Get answers answers to a question
 export const getQuestionAnswers: RequestHandler = async (req: Request, res: Response) => {
   try {
     if (DB.checkConnection() as unknown as boolean) {
@@ -17,7 +17,7 @@ export const getQuestionAnswers: RequestHandler = async (req: Request, res: Resp
         if (answers.length > 0) {
           res.status(200).json(answers)
         } else {
-          res.status(200).json({ message: "No answers found" })
+          res.status(200).json({ message: "No answers found!" })
         }
       } else {
         res.status(500).json({ message: "Error getting answers" })
@@ -57,5 +57,43 @@ export const addAnswer: RequestHandler = async (req: Request, res: Response) => 
     }
   } catch (error) {
     res.status(500).send(error)
+  }
+}
+
+// Update an answer
+export const updateAnswer: RequestHandler = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.answer_id
+    const answerToUpdate = await DB.exec("sp_GetAnswerById", { id })
+    
+    
+
+    if (answerToUpdate) {
+      if (answerToUpdate.length > 0) {
+        const updatedAnswer: Answer = {...answerToUpdate[0], ...req.body, created_at: new Date().toLocaleDateString()}
+        
+        const { error } = validateAnswer(updatedAnswer)
+        if (error) return res.status(400).json({ message: error.details[0].message })
+
+        if (DB.checkConnection() as unknown as boolean) {
+          const updated: Answer = await DB.exec("sp_UpdateAnswer", {
+            id: updatedAnswer.id,
+            description: updatedAnswer.description,
+            created_at: updatedAnswer.created_at,
+            isAccepted: updatedAnswer.isAccepted
+          }) as unknown as Answer
+
+          if (updated) {
+            res.status(200).json(updated)
+          } else {
+            res.status(500).json({ message: "Error updating answer" })
+          }
+        } else {
+          res.status(500).json({ message: "Error connecting to database" })
+        }
+      }
+    }
+  } catch (error) {
+    res.status(500).json(error)
   }
 }
