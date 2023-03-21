@@ -11,7 +11,8 @@ const answerSchema = joi_1.default.object({
     question_id: joi_1.default.string().required(),
     user_id: joi_1.default.string().required(),
     created_at: joi_1.default.string().required(),
-    isAccepted: joi_1.default.required()
+    isAccepted: joi_1.default.required(),
+    accepted_email_sent: joi_1.default.required()
 });
 const validateAnswer = (answer) => {
     return answerSchema.validate(answer);
