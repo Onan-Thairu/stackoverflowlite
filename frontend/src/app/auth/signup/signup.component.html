@@ -7,10 +7,10 @@
     <div class="formGroup">
       <form [formGroup]="form" (ngSubmit)="submitForm()" >
           <div class="formControl">
-            <label for="name">Display Name</label>
-            <input type="text" name="name" formControlName="name"  required />
-            <span class="error" *ngIf="form.get('name')?.invalid && form.get('name')?.touched" >
-              <span class="error" *ngIf="form.get('name')!.errors!['required']">Display name is required</span>
+            <label for="name">Username</label>
+            <input type="text" name="username" formControlName="username"  required />
+            <span class="error" *ngIf="form.get('username')?.invalid && form.get('username')?.touched" >
+              <span class="error" *ngIf="form.get('username')!.errors!['required']">Username is required</span>
             </span>
           </div>
       

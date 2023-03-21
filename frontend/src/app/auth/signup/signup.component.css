@@ -13,7 +13,7 @@
 }
 .logo {
   text-align: center;
-  margin: 1rem auto;
+  margin: .6rem auto;
 }
 .logo p {
   font-size: 1.5rem;
@@ -46,19 +46,19 @@ form {
   color: #616161;;
   outline: none;
   border: none;
-  padding: .5rem;
+  padding: .3rem;
   margin-bottom: .6rem;
   width: 100%;
   border-radius: 5px;
 }
 .formControl button {
   margin-top: 1rem;
-  padding: .5rem;
+  padding: .3rem;
   border: none;
   border-radius: 5px;
   background-color: #757575;
   color: #fff;
-  font-size: .9rem;
+  font-size: .7rem;
   cursor: pointer;
   margin-bottom: 1rem;
 }
@@ -94,7 +94,15 @@ form {
     width: 80%;
   }
   .formControl label {
-    font-size: .8rem;
+    font-size: .6rem;
+  }
+  .formControl button {
+    margin-top: .6rem;
+    margin-bottom: .6rem;
+    padding: .3rem;
+  }
+  .formControl input {
+    padding: .3rem;
   }
 }
 @media (min-width:900px){
