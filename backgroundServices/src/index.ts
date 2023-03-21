@@ -4,6 +4,7 @@ import cors from 'cors'
 // import dotenv from 'dotenv'
 import { Request, Response } from "express";
 import { sendWelcomeEmail } from "./service/welcomeEmail.service";
+import { sendAnswerAcceptedEmail } from "./service/acceptedAnswerEmail";
 import cron from 'node-cron'
 
 const app = express()
@@ -17,6 +18,10 @@ app.get('/', (req: Request, res: Response) => {
 
 cron.schedule('*/10 * * * * *', async () => {
   await sendWelcomeEmail()
+})
+
+cron.schedule('*/10 * * * * *',async () => {
+  await sendAnswerAcceptedEmail()
 })
 
 app.listen(process.env.PORT, () => {

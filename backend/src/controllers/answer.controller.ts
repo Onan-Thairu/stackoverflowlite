@@ -39,7 +39,8 @@ export const addAnswer: RequestHandler = async (req: Request, res: Response) => 
       question_id: req.body.question_id as string,
       created_at: new Date().toLocaleDateString(),
       user_id: req.body.user_id as string,
-      isAccepted: req.body.isAccepted as string
+      isAccepted: '0',
+      accepted_email_sent: '0'
     }
 
     const { error } = validateAnswer(answer)
@@ -64,14 +65,12 @@ export const addAnswer: RequestHandler = async (req: Request, res: Response) => 
 export const updateAnswer: RequestHandler = async (req: Request, res: Response) => {
   try {
     const id = req.params.answer_id
-    const answerToUpdate = await DB.exec("sp_GetAnswerById", { id })
-    
-    
+    const answerToUpdate = await DB.exec("sp_GetAnswerById", { id })    
 
     if (answerToUpdate) {
       if (answerToUpdate.length > 0) {
         const updatedAnswer: Answer = {...answerToUpdate[0], ...req.body, created_at: new Date().toLocaleDateString()}
-        
+
         const { error } = validateAnswer(updatedAnswer)
         if (error) return res.status(400).json({ message: error.details[0].message })
 
@@ -80,7 +79,8 @@ export const updateAnswer: RequestHandler = async (req: Request, res: Response) 
             id: updatedAnswer.id,
             description: updatedAnswer.description,
             created_at: updatedAnswer.created_at,
-            isAccepted: updatedAnswer.isAccepted
+            isAccepted: updatedAnswer.isAccepted,
+
           }) as unknown as Answer
 
           if (updated) {

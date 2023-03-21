@@ -52,7 +52,8 @@ const addAnswer = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             question_id: req.body.question_id,
             created_at: new Date().toLocaleDateString(),
             user_id: req.body.user_id,
-            isAccepted: req.body.isAccepted
+            isAccepted: '0',
+            accepted_email_sent: '0'
         };
         const { error } = (0, answer_validate_1.validateAnswer)(answer);
         if (error)
@@ -91,7 +92,7 @@ const updateAnswer = (req, res) => __awaiter(void 0, void 0, void 0, function* (
                         id: updatedAnswer.id,
                         description: updatedAnswer.description,
                         created_at: updatedAnswer.created_at,
-                        isAccepted: updatedAnswer.isAccepted
+                        isAccepted: updatedAnswer.isAccepted,
                     });
                     if (updated) {
                         res.status(200).json(updated);

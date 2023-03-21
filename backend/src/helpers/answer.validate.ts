@@ -7,7 +7,8 @@ const answerSchema = joi.object({
   question_id: joi.string().required(),
   user_id: joi.string().required(),
   created_at: joi.string().required(),
-  isAccepted: joi.required()
+  isAccepted: joi.required(),
+  accepted_email_sent: joi.required()
 })
 
 export const validateAnswer = (answer: Answer) => {
