@@ -10,6 +10,8 @@ export class AuthService {
 
   isRegistered = false
   isLoggedIn = false
+  private is_admin = ''
+  public username = ''
 
   register() {
     this.isRegistered = true
@@ -24,5 +26,21 @@ export class AuthService {
   logout() {
     this.isLoggedIn = false
     this.router.navigate(['/login'])
+  }
+
+  getis_admin() {
+    return this.is_admin
+  }
+
+  setis_admin(is_admin: string) {
+    this.is_admin = is_admin
+  }
+
+  getUsername() {
+    return this.username
+  }
+
+  setUsername(username: string) {
+    this.username = username
   }
 }
