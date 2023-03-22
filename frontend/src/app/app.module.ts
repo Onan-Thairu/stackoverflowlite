@@ -13,6 +13,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { questionReducer } from './state/reducers/question.reducer';
 import { answerReducer } from './state/reducers/answer.reducer';
 import { commentReducer } from './state/reducers/comment.reducer';
+import { QuestionEffects } from './state/effects/question.effects';
 
 
 @NgModule({
@@ -30,7 +31,9 @@ import { commentReducer } from './state/reducers/comment.reducer';
       answers: answerReducer,
       comments: commentReducer
     }, {}),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([
+      QuestionEffects
+    ]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
   ],
   providers: [],

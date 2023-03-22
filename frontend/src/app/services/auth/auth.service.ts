@@ -43,4 +43,13 @@ export class AuthService {
   setUsername(username: string) {
     this.username = username
   }
+  
+  getAuthStatus(): Promise<boolean> {
+    const promise = new Promise<boolean>((resolve, reject) => {
+      setTimeout(() => {
+        resolve(this.isLoggedIn)
+      }, 10)
+    })
+    return promise
+  }
 }

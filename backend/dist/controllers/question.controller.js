@@ -50,7 +50,7 @@ const addQuestion = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             title: req.body.title,
             description: req.body.description,
             tried: req.body.tried,
-            created_at: new Date().toLocaleDateString(),
+            created_at: new Date().toISOString(),
             user_id: req.body.user_id
         };
         const { error } = (0, question_validate_1.validateQuestion)(question);

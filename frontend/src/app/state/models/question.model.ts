@@ -1,7 +1,8 @@
 export interface Question {
-  id: number;
+  id: string;
   title: string;
-  body: string;
-  author: string;
+  description: string;
+  tried: string;
+  user_id: string;
   created_at: Date;
 }
