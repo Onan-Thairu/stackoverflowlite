@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { StoreModule } from '@ngrx/store';
@@ -18,6 +18,7 @@ import { RegisterUserEffects } from './state/effects/register.effects';
 import { registerUserReducer } from './state/reducers/register.reducer';
 import { _loggedInUserReducer } from './state/reducers/login.reducer';
 import { LoggedInUserEffects } from './state/effects/login.effects';
+import { TokenInterceptorService } from './services/auth/token-interceptor.service';
 
 
 @NgModule({
@@ -44,7 +45,13 @@ import { LoggedInUserEffects } from './state/effects/login.effects';
     ]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

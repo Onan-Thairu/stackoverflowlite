@@ -1,14 +1,10 @@
 <app-header></app-header>
 <div class="container">
   <div>
-    <p class="title">Title one</p>
+    <p class="title">{{ question?.title }}</p>
   </div>
   <div class="description">
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer in nisi eget ex facilisis 
-      tincidunt vitae a mi. Nulla sed nulla gravida, pulvinar felis faucibus, fermentum ex. 
-      Duis et magna non justo vulputate dapibus. Maecenas sapien leo, accumsan ut auctor vitae, 
-      blandit non justo. Cras egestas suscipit porttitor. Cras consectetur laoreet ex eget pharetra.
-    </p>
+    <p>{{ question?.description }}</p>
   </div>
   <div>
     <p class="title answer">Answers</p>

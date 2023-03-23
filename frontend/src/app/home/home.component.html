@@ -1,12 +1,12 @@
 <app-header></app-header>
 <div *ngFor="let question of allQuestions">
-  <a routerLink="/view-question">
+  <a [routerLink]="question.id">
     <div class="container">
       <div class="question">
         <p>{{ question?.title }}</p>
       </div>
       <div class="votes">
-        <a href="#">{{ question?.created_at }}</a>
+        <a href="#">{{ question?.created_at | date:'short':'UTC' }}</a>
         <a href="#" id="answer">2 answers</a>
       </div>
       <div class="user">
@@ -15,56 +15,3 @@
     </div>
   </a>
 </div>
-
-
-<!-- <div class="container">
-  <div class="question">
-    <p>How to send emails using nodemailer.</p>
-  </div>
-  <div class="votes">
-    <a href="#">10 votes</a>
-    <a href="#" id="answer">2 answers</a>
-  </div>
-  <div class="user">
-    <p>John Doe</p>
-  </div>
-</div>
-
-<div class="container">
-  <div class="question">
-    <p>How to send emails using nodemailer.</p>
-  </div>
-  <div class="votes">
-    <a href="#">10 votes</a>
-    <a href="#" id="answer">2 answers</a>
-  </div>
-  <div class="user">
-    <p>John Doe</p>
-  </div>
-</div>
-
-<div class="container">
-  <div class="question">
-    <p>How to send emails using nodemailer.</p>
-  </div>
-  <div class="votes">
-    <a href="#">10 votes</a>
-    <a href="#" id="answer">2 answers</a>
-  </div>
-  <div class="user">
-    <p>John Doe</p>
-  </div>
-</div>
-
-<div class="container">
-  <div class="question">
-    <p>How to send emails using nodemailer.</p>
-  </div>
-  <div class="votes">
-    <a href="#">10 votes</a>
-    <a href="#" id="answer">2 answers</a>
-  </div>
-  <div class="user">
-    <p>John Doe</p>
-  </div>
-</div> -->
