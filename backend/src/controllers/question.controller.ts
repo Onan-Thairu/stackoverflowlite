@@ -35,7 +35,7 @@ export const addQuestion: RequestHandler = async (req: Request, res: Response) =
       title: req.body.title as string,
       description: req.body.description as string,
       tried: req.body.tried as string,
-      created_at: new Date().toLocaleDateString(),
+      created_at: new Date().toISOString(),
       user_id: req.body.user_id as string
     }
 

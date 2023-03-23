@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit {
     const { email, password } = this.form.value
     const formData:logUser = { email, password }
     this.userService.login(formData).subscribe(response => {
-      console.log(response)
       this.auth.setis_admin(response.user.isAdmin)
       this.auth.setUsername(response.user.username)
       this.auth.login()

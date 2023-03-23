@@ -5,6 +5,10 @@ import { Router, RouterModule } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
 import { User } from 'src/app/interfaces/interfaces';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/state/app.state';
+import { register } from 'src/app/state/actions/register.actions';
+import { selectRegisterUserStateError, selectRegisterUserStateloading } from 'src/app/state/selectors/register.selectors';
 
 @Component({
   selector: 'app-signup',
@@ -15,8 +19,9 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class SignupComponent implements OnInit {
   form!: FormGroup
+  isLoading = true
 
-  constructor(private fb:FormBuilder, private userService:UserService, private router:Router, private auth: AuthService){}
+  constructor(private fb:FormBuilder, private store: Store<AppState>, private userService:UserService, private router:Router, private auth: AuthService){}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -27,13 +32,29 @@ export class SignupComponent implements OnInit {
     })
   }
 
+  // submitForm() {
+  //   const { username, email, password } = this.form.value
+  //   const formData:User = { username, email, password }
+  //   this.userService.register(formData).subscribe(response => {
+  //     console.log(response)
+  //     this.auth.register()
+  //     localStorage.setItem('token', response.token)
+  //   })
+  // }
   submitForm() {
     const { username, email, password } = this.form.value
-    const formData:User = { username, email, password }
-    this.userService.register(formData).subscribe(response => {
-      console.log(response)
-      this.auth.register()
-      localStorage.setItem('token', response.token)
+    const formData: User = { username, email, password }
+    this.store.dispatch(register({ user: formData}))
+
+    this.store.select(selectRegisterUserStateloading).subscribe((loading) => {
+      this.isLoading = loading
+    })
+
+    this.store.select(selectRegisterUserStateError).subscribe((error) => {
+      if (error) {
+        console.log(error.message);
+        return
+      }
     })
   }
 

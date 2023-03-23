@@ -4,7 +4,7 @@ import { verifyToken } from "../middleware/verifyToken.middleware";
 
 const questionRouter = Router()
 
-questionRouter.get("", verifyToken, getAllQuestions)
+questionRouter.get("", getAllQuestions)
 questionRouter.get("/:id", verifyToken, getQuestionById)
 questionRouter.post("/add-question", verifyToken, addQuestion)
 questionRouter.put("/:id", verifyToken, updateQuestion)

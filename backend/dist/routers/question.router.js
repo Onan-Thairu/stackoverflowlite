@@ -4,7 +4,7 @@ const express_1 = require("express");
 const question_controller_1 = require("../controllers/question.controller");
 const verifyToken_middleware_1 = require("../middleware/verifyToken.middleware");
 const questionRouter = (0, express_1.Router)();
-questionRouter.get("", verifyToken_middleware_1.verifyToken, question_controller_1.getAllQuestions);
+questionRouter.get("", question_controller_1.getAllQuestions);
 questionRouter.get("/:id", verifyToken_middleware_1.verifyToken, question_controller_1.getQuestionById);
 questionRouter.post("/add-question", verifyToken_middleware_1.verifyToken, question_controller_1.addQuestion);
 questionRouter.put("/:id", verifyToken_middleware_1.verifyToken, question_controller_1.updateQuestion);

@@ -9,8 +9,8 @@ export const addQuestion = createAction('[Question] Add Question', props<{ quest
 export const addQuestionSuccess = createAction('[Question] Add Question Success', props<{ question: Question }>());
 export const addQuestionFailure = createAction('[Question] Add Question Failure', props<{ error: any }>());
 
-export const deleteQuestion = createAction('[Question] Delete Question', props<{ questionId: number }>());
-export const deleteQuestionSuccess = createAction('[Question] Delete Question Success', props<{ questionId: number }>());
+export const deleteQuestion = createAction('[Question] Delete Question', props<{ questionId: string }>());
+export const deleteQuestionSuccess = createAction('[Question] Delete Question Success', props<{ questionId: string }>());
 export const deleteQuestionFailure = createAction('[Question] Delete Question Failure', props<{ error: any }>());
 
 export const updateQuestion = createAction('[Question] Update Question', props<{ question: Question }>());
