@@ -24,3 +24,12 @@ export interface loggedInUser {
   email: string
   isAdmin: string
 }
+
+export interface loggedInUser2 {
+  user?: User[];
+  is_admin?: string;
+  id: string;
+  username: string;
+  email: string;
+  token : string;
+}

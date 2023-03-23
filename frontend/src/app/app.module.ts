@@ -16,6 +16,8 @@ import { commentReducer } from './state/reducers/comment.reducer';
 import { QuestionEffects } from './state/effects/question.effects';
 import { RegisterUserEffects } from './state/effects/register.effects';
 import { registerUserReducer } from './state/reducers/register.reducer';
+import { _loggedInUserReducer } from './state/reducers/login.reducer';
+import { LoggedInUserEffects } from './state/effects/login.effects';
 
 
 @NgModule({
@@ -31,12 +33,14 @@ import { registerUserReducer } from './state/reducers/register.reducer';
     StoreModule.forRoot({
       questions: questionReducer,
       registerUser: registerUserReducer,
+      loggedInUser: _loggedInUserReducer,
       answers: answerReducer,
       comments: commentReducer
     }, {}),
     EffectsModule.forRoot([
       QuestionEffects,
-      RegisterUserEffects
+      RegisterUserEffects,
+      LoggedInUserEffects
     ]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
   ],
