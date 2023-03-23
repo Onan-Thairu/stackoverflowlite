@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteAnswer = exports.updateAnswer = exports.addAnswer = exports.getQuestionAnswers = void 0;
+exports.deleteAnswer = exports.updateAnswer = exports.addAnswer = exports.getAllAnswers = exports.getQuestionAnswers = void 0;
 const uuid_1 = require("uuid");
 const answer_validate_1 = require("../helpers/answer.validate");
 const dbConnection_1 = __importDefault(require("../dbHelper/dbConnection"));
@@ -43,6 +43,32 @@ const getQuestionAnswers = (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.getQuestionAnswers = getQuestionAnswers;
+// Get all answers
+const getAllAnswers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        if (dbConnection_1.default.checkConnection()) {
+            const answers = yield dbConnection_1.default.exec("sp_GetAllAnswers", {});
+            if (answers) {
+                if (answers.length > 0) {
+                    res.status(200).json(answers);
+                }
+                else {
+                    res.status(200).json({ message: "No answers found!" });
+                }
+            }
+            else {
+                res.status(500).json({ message: "Error getting answers" });
+            }
+        }
+        else {
+            res.status(500).json({ message: "Error connecting to database" });
+        }
+    }
+    catch (error) {
+        res.status(500).send(error);
+    }
+});
+exports.getAllAnswers = getAllAnswers;
 // Add an answer
 const addAnswer = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {

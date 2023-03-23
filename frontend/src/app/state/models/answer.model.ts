@@ -1,7 +1,9 @@
 export interface Answer {
-  id: number;
-  body: string;
-  author: string;
+  id: string;
+  description: string;
+  user_id: string;
+  question_id: string;
   created_at: Date;
-  question_id: number;
+  isAccepted: string;
+  accepted_email_sent: string
 }

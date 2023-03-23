@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { Answer } from '../models/answer.model';
 
-export const loadAnswers = createAction('[Answer] Load Answers', props<{ questionId: number }>());
+export const loadAnswers = createAction('[Answer] Load Answers');
 export const loadAnswersSuccess = createAction('[Answer] Load Answers Success', props<{ answers: Answer[] }>());
 export const loadAnswersFailure = createAction('[Answer] Load Answers Failure', props<{ error: any }>());
 

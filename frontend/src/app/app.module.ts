@@ -19,6 +19,7 @@ import { registerUserReducer } from './state/reducers/register.reducer';
 import { _loggedInUserReducer } from './state/reducers/login.reducer';
 import { LoggedInUserEffects } from './state/effects/login.effects';
 import { TokenInterceptorService } from './services/auth/token-interceptor.service';
+import { AnswerEffects } from './state/effects/answer.effects';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { TokenInterceptorService } from './services/auth/token-interceptor.servi
     EffectsModule.forRoot([
       QuestionEffects,
       RegisterUserEffects,
-      LoggedInUserEffects
+      LoggedInUserEffects,
+      AnswerEffects
     ]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
   ],

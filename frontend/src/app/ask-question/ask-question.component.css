@@ -11,12 +11,12 @@
 .formControl label {
   color: #616161;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: .7rem;
 }
 .formControl .description {
   color: #9E9E9E;
-  font-size: .7rem;
-  margin-bottom: .5rem;
+  font-size: .5rem;
+  margin-bottom: .4rem;
 }
 .formControl input {
   width: 100%;
@@ -26,6 +26,7 @@
   padding: .6rem;
   color: #616161;
   margin-bottom: 1rem;
+  font-size: .6rem;
 }
 .formControl textarea {
   width: 100%;
@@ -36,19 +37,20 @@
   padding: .6rem;
   color: #616161;
   margin-bottom: 1rem;
+  font-size: .6rem;
 }
 .error {
-  font-size: .6rem;
+  font-size: .5rem;
   color: #ef5350;
 }
 .formControl button {
-  margin-top: 1rem;
-  padding: .6rem;
+  margin-top: .4rem;
+  padding: .4rem;
   border: none;
   border-radius: 5px;
   background-color: #616161;
   color: #fff;
-  font-size: .8rem;
+  font-size: .6rem;
   cursor: pointer;
   margin-bottom: 1rem;
 }

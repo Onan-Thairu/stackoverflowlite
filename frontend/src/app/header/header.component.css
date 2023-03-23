@@ -9,7 +9,7 @@
 .top-left{
   display: flex;
   gap: 1rem;
-  font-size: .8rem;
+  font-size: .4rem;
   margin-right: 1rem;
 }
 .top-left img {
@@ -27,7 +27,7 @@
   text-decoration: none;
 }
 .logo p {
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #616161;
 }
@@ -44,9 +44,9 @@
   gap: 1rem;
 }
 .lower-content img {
-  margin-left: .3rem;
-  margin-top: .4rem;
-  width: 1rem;
+  margin-left: .2rem;
+  margin-top: .3rem;
+  width: .6rem;
 }
 .search::placeholder {
   background-image: url(../../assets/icons/search.svg);
@@ -58,14 +58,14 @@
   border: none;
   outline: none;
   border-radius: 3px;
-  padding: .3rem .5rem;
+  padding: .1rem .5rem;
   color: #616161;
 }
 .question-btn button {
   border: none;
   background-color: #616161;
   padding: .3rem .5rem;
-  font-size: .8rem;
+  font-size: .5rem;
   color: #fff;
   border-radius: 5px;
 }

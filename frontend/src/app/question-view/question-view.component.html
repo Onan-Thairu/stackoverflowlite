@@ -8,17 +8,16 @@
   </div>
   <div>
     <p class="title answer">Answers</p>
-    <div class="answer-div">
-      <div class="answer-vote">
-        <img src="../../assets/icons/upvote.svg" alt="upvote">
-        <p>11</p>
-        <img src="../../assets/icons/downvote.svg" alt="downvote">
-      </div>
-      <div class="answer-description">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer in nisi eget ex facilisis 
-          tincidunt vitae a mi. Nulla sed nulla gravida, pulvinar felis faucibus, fermentum ex. 
-          Duis et magna non justo vulputate dapibus.
-        </p>
+    <div *ngFor="let answer of answers">
+      <div class="answer-div">
+        <div class="answer-vote">
+          <img src="../../assets/icons/upvote.svg" alt="upvote">
+          <p>11</p>
+          <img src="../../assets/icons/downvote.svg" alt="downvote">
+        </div>
+        <div class="answer-description">
+          <p>{{ answer?.description }}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -26,5 +25,8 @@
   <div class="my-answer">
     <p class="title">Your Answer</p>
     <textarea name="my-answer"></textarea>
+    <div class="question-btn">
+      <button><a href="#">Answer</a></button>
+    </div>
   </div>
 </div>

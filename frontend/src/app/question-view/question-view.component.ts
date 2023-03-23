@@ -6,6 +6,8 @@ import { Question } from '../state/models/question.model';
 import { Answer } from '../state/models/answer.model';
 import { Store } from '@ngrx/store';
 import { AppState } from '../state/app.state';
+import { selectAnswers } from '../state/selectors/answer.selectors';
+import { loadAnswers } from '../state/actions/answer.actions';
 
 @Component({
   selector: 'app-question-view',
@@ -29,6 +31,16 @@ export class QuestionViewComponent implements OnInit {
       },
       (error:any) => {
         console.log(error); 
+      })
+    })
+    
+    this.store.dispatch(loadAnswers())
+
+    this.route.params.subscribe(params => {
+      this.store.select(selectAnswers).subscribe(answers => {
+        this.answers = answers.filter((answer: Answer) => answer.question_id === params['id'])
+        console.log("Answers:", this.answers);
+        
       })
     })
   }

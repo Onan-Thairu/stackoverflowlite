@@ -30,6 +30,30 @@ export const getQuestionAnswers: RequestHandler = async (req: Request, res: Resp
   }
 }
 
+// Get all answers
+export const getAllAnswers: RequestHandler = async (req: Request, res: Response) => {
+  try {
+    if (DB.checkConnection() as unknown as boolean) {
+
+      const answers: Answer[] = await DB.exec("sp_GetAllAnswers", {}) as unknown as Answer[]
+
+      if (answers) {
+        if (answers.length > 0) {
+          res.status(200).json(answers)
+        } else {
+          res.status(200).json({ message: "No answers found!" })
+        }
+      } else {
+        res.status(500).json({ message: "Error getting answers" })
+      }
+    } else {
+      res.status(500).json({ message: "Error connecting to database" })
+    }
+  } catch (error) {
+    res.status(500).send(error)
+  }
+}
+
 // Add an answer
 export const addAnswer: RequestHandler = async (req: Request, res: Response) => {
   try {
