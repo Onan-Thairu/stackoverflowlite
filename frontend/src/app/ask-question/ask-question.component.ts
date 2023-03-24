@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../header/header.component';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { selectLoggedInUser } from '../state/selectors/login.selectors';
+import { Router } from '@angular/router';
+import { QuestionService } from '../services/question/question.service';
+import { addQuestion } from '../state/actions/question.actions';
+import { AppState } from '../state/app.state';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-ask-question',
@@ -12,7 +18,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 })
 export class AskQuestionComponent implements OnInit {
   form!: FormGroup
-  constructor(private fb:FormBuilder){}
+  constructor(private fb:FormBuilder, private router: Router, private questionService: QuestionService, private store: Store<AppState>){}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -20,8 +26,15 @@ export class AskQuestionComponent implements OnInit {
       details: [null, [Validators.required, Validators.minLength(20)]],
       tried: [null, [Validators.required, Validators.minLength(20)]]
     })
+
+    const user = this.store.select(selectLoggedInUser).subscribe((user: any) => {
+      console.log(user?.user[0].id);
+    })
   }
 
-  submitForm(){}
+  submitForm(){
+    this.store.dispatch(addQuestion(this.form.value))
+    this.router.navigate(["/"])
+  }
 
 }

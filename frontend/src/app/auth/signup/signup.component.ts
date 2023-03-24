@@ -56,6 +56,7 @@ export class SignupComponent implements OnInit {
         return
       }
     })
+    this.router.navigate(["/"])
   }
 
   passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {

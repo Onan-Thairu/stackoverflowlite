@@ -1,9 +1,9 @@
 import { Action, createReducer, on } from "@ngrx/store";
 import { register, registerSuccess, registerError } from "../actions/register.actions";
-import { loggedInUser } from "../models/user.model";
+import { loggedInUser2 } from "../models/user.model";
 
 export interface LoggedInUserState {
-  user: loggedInUser | null;
+  user: loggedInUser2 | null;
   loading: boolean
   error: any
 }
